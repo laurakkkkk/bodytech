@@ -1,0 +1,8 @@
+{
+    "name": "laurakkkkk/bodytech",
+    "description": "Sistema Bodytech",
+    "type": "project",
+    "require": {
+        "php": ">=7.4"
+    }
+}
