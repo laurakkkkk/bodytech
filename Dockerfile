@@ -12,11 +12,13 @@ RUN apt-get update && apt-get install -y \
 # Copiar todos los archivos al servidor
 COPY . /var/www/html/
 
-# Configurar Apache para que sirva index.html/index.php
-RUN echo "DirectoryIndex index.php index.html" >> /etc/apache2/apache2.conf
+# Configurar Apache correctamente
+RUN echo "DirectoryIndex index.html index.php" >> /etc/apache2/apache2.conf
 
-# Configurar para permitir .htaccess
-RUN echo "AllowOverride All" >> /etc/apache2/apache2.conf
+# **CORRECCIÓN: AllowOverride dentro de un bloque Directory**
+RUN echo "<Directory /var/www/html/>" >> /etc/apache2/apache2.conf && \
+    echo "    AllowOverride All" >> /etc/apache2/apache2.conf && \
+    echo "</Directory>" >> /etc/apache2/apache2.conf
 
 # Dar permisos
 RUN chown -R www-data:www-data /var/www/html/
